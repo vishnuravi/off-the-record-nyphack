@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, render_template
 from pymongo import MongoClient
 import twilio.twiml, os, time, json
 
-server_url = "http://apps.vishnu.io:5000"
+server_url = "http://otr.vishnu.io:5000"
 
 class CustomFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
@@ -17,7 +17,8 @@ app = CustomFlask(__name__)
 def index_page():
     return "Hello"
  
-#recieves sms from Twilio and sends back link to compose message
+#recieves sms from Twilio and sends st
+ back link to compose message
 @app.route("/process_sms", methods=['GET', 'POST'])
 def process_sms():
     phone_number = request.values.get('From', None)
