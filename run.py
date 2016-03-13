@@ -42,8 +42,9 @@ def process_sms():
 def compose(token):
     valid_token = db.tokens.find_one({"token": token})
     if valid_token is not None:
+        phone_number = valid_token['phone_number']
         db.tokens.remove({"token": token})
-        return render_template('compose.html')
+        return render_template('compose.html', phone_number=phone_number)
     else:
         return "Invalid Link"
 	
@@ -52,8 +53,7 @@ def compose(token):
 @app.route("/send", methods=['GET', 'POST'])
 def save():
     message = request.values.get('message', None)
-    
-    #validate the token, then insert the message
+    phone_number = request.values.get('phone_number', None)
     db.messages.insert_one({"phone_number": phone_number, "message": message, "time": int(time.time())})
     return "ok"
     
