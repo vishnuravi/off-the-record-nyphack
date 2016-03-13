@@ -1,8 +1,7 @@
 <template>
 
-  <div v-if="message" class="chat-box-reply" >
-      <p>{{message}}
-          <p>
+  <div class="chat-box-reply" >
+      <p>{{reply}}<p>
   </div>
 
   <div class="thanks">
@@ -19,11 +18,8 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'Okay, Thanks!',
-      message: ''
+      reply: ''
     }
-  },
-  ready () {
-    this.$set('message', this.props.message)
   }
 }
 </script>

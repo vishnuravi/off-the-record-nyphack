@@ -12,9 +12,3 @@ Vue.transition('fadein', {
   leaveClass: 'fadeOutDown'
 })
 
-Vue.component('thanks', {
-  // declare the props
-  props: ['message']
-  // the prop can be used inside templates, and will also
-  // be set as `this.message`
-})

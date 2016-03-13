@@ -5,17 +5,15 @@
         </div>
     </div>
     <div id="app">
-        <div v-if="!thanks">
+        <div>
             <div class="animated chat-box" transition="fadein">
                 <p>Hello, {{patient_name}} %% patient_name %%
                     <p>
             </div>
 
         </div>
-        <thanks v-if="thanks">
-            </thanks>
-                <div class="user-message" v-if="!thanks">
-                  <div class="user-container">
+                <div class="user-message">
+                  <div class="user-container" v-if="!thanks">
                         <div>
                             <textarea v-model="message" name="message" class="textarea-box"></textarea>
                         </div>
@@ -24,17 +22,26 @@
 
                       </div>
                 </div>
-    </div>
+            <div v-if="thanks" class="animated" transition="fadein">
+              <div class="chat-box-reply">
+                <p>{{message}}<p>
+              </div>
+            </div>
+
+          <div v-if="thanks"  class="animated chat-box" transition="fadein">
+            <p>Thanks, %% patient_name %% . The Doctor will address this on your next visit. Enjoy your day!
+            <p>
+          </div>
+         </div>
+
+
 
   </template>
 <script>
-import Thanks from './components/Thanks'
+// import Thanks from './components/Thanks'
 
 export default {
   name: 'App',
-  components: {
-    Thanks
-  },
 
   data () {
     return {
@@ -80,6 +87,7 @@ box-sizing: border-box;
 margin: 0;
 font-family:  "Josefin Sans", Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
 background: #CFCFCF;
+font-size: 16px;
 }
 
 #app {
@@ -126,6 +134,8 @@ background: #CFCFCF;
   height: 51px;
   float: left;
   width: 79%;
+  font-size: 16px;
+  font-family:  "Josefin Sans", Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
 }
 
 .chat-box, .chat-box-reply{
