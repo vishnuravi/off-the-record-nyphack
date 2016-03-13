@@ -1,53 +1,49 @@
 <template>
+    <div class="top-nav">
+        <div class="container">
+            <img class="logo animated" src="./assets/logo.png" transition="fadein"/>
+        </div>
+    </div>
+    <div id="app">
+        <div v-if="!thanks">
+            <div class="animated chat-box" transition="fadein">
+                <p>Hello, {{patient_name}} %% patient_name %%
+                    <p>
+            </div>
 
-<div class="top-nav">
+        </div>
+        <thanks v-if="thanks">
+            </thanks>
+                <div class="user-message" v-if="!thanks">
+                  <div class="user-container">
+                        <div>
+                            <textarea v-model="message" name="message" class="textarea-box"></textarea>
+                        </div>
+                        <input @click="thanks = !thanks" type="submit" class="button" value="Send">
+                        <input type="hidden" name="phone_number" value="%% phone_number %%">
 
-<div class="container">
-<img class="logo" src="./assets/logo.png" />
-</div>
-</div>
-
-  <div id="app">
-    <div class="chat-box">
-    <p>Hello, {{patient_name}} %% patient_name %%<p>
+                      </div>
+                </div>
     </div>
 
-    <div v-show="message" class="chat-box">
-    <p >{{message}}<p>
-    </div>
-
-<div>
-<form class="user-message" action="/send" method="post">
-  <div>
-    <textarea v-model="message" name="message" class="textarea-box" ></textarea>
-  </div>
-
-  <input type="submit" class="button" value="Send">
-  <input  type="hidden" name="phone_number" value="%% phone_number %%">
-</form>
-</div>
-  </div>
-
-
-</template>
-
+  </template>
 <script>
-import Hello from './components/Hello'
+import Thanks from './components/Thanks'
 
 export default {
   name: 'App',
   components: {
-    Hello
+    Thanks
   },
 
   data () {
     return {
       message: '',
-      patient_name: 'Sharon'
+      patient_name: 'Sharon',
+      thanks: false
     }
   }
 }
-
 </script>
 
 
@@ -108,17 +104,22 @@ background: #CFCFCF;
   color: #fff;
   background: #c8362e;
   padding: 0 25px;
-  line-height: 56px;
+  line-height: 48px;
   border: none;
   cursor: pointer;
   float: right;
   max-width: 20%;
+  border: 1px solid #c8362e;
+
 }
 
 .button:hover{
   color: #c8362e;
   background: #fff;
   border: 1px solid #c8362e;
+  padding: 0 23px;
+
+
 }
 
 .textarea-box{
@@ -127,12 +128,12 @@ background: #CFCFCF;
   width: 79%;
 }
 
-.chat-box{
+.chat-box, .chat-box-reply{
   background: #fff;
   padding: 1em 1em;
   margin: 4em auto;
   max-width: 480px;
-  width: 100%;
+  width: 95%;
   max-width: 600px;
 }
 
@@ -142,27 +143,52 @@ background: #CFCFCF;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
     border-top: 20px solid #fff;
-    left: 48%;
-    top: 31%;
-    margin-left: -230px;
+    margin-left: 0;
     width: 0;
     content: " ";
     font-size: 0;
     line-height: 0;
     height: 0;
     padding-top: 3em;
-    position: absolute;
+    position: relative;
+    top: 30px;
+    bottom: -57px;
+}
+
+.chat-box-reply:after{
+    width: 0px;
+    height: 0px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #fff;
+    margin-left: 82%;
+    width: 0;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+    height: 0;
+    padding-top: 3em;
+    position: relative;
+    top: 30px;
+    bottom: -57px;
+
 
 }
+
+
 
 .user-message{
   display: inline-block;
   width: 100%;
   bottom: 0;
   position: absolute;
-  max-width: 600px;
   margin: 0 auto;
+  background: #fff;
+  padding: .5em .5em;
+}
 
-
+.user-container{
+  margin: 0 auto;
+  max-width: 600px;
 }
 </style>
