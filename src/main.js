@@ -1,4 +1,5 @@
 import Vue from 'vue'
+Vue.use(require('vue-resource'))
 import App from './App'
 import Members from './Members'
 /* eslint-disable no-new */
