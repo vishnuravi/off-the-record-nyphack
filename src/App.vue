@@ -1,6 +1,8 @@
 <template>
     <div class="top-nav">
         <div class="container">
+            
+            <img class="logo2 animated" src="./assets/l2.png" transition="fadein"/>
             <img class="logo animated" src="./assets/logo.png" transition="fadein"/>
         </div>
     </div>
@@ -35,7 +37,7 @@
             </div>
 
           <div v-if="thanks"  class="animated chat-box" transition="fadein">
-            <p>Thanks  <span v-model="%% patient_name %% "></span>. The Doctor will address this on your next visit. Enjoy your day!
+            <p>Thanks Vishnu. The Doctor will address this on your next visit. Enjoy your day!
             <p>
           </div>
          </div>
@@ -56,29 +58,9 @@ export default {
       thanks: false,
       userInfo: []
     }
-  },
-
-  ready () {
-    this.getUserName();
-  },
-
-  method: {
-    getUserName() {
-    var queryString = window.location.search
-     queryString = queryString.substring(1)
-    if (!queryString) {
-      this.$set('page', '')
-    } else if (queryString === 'members') {
-      this.$set('page', queryString)
-    } else {
-      var arr = queryString.split('&')
-      this.$set('userInfo', arr)
-    }
-
-  }
-
   }
 }
+
 </script>
 
 
@@ -102,7 +84,7 @@ html {
 }
 
 .top-nav{
-  background: #c8362e;
+  background: #e52625 !important;
   height: 100px;
   width: 100%;
   top: 0;
@@ -123,13 +105,19 @@ font-size: 16px;
   align-items: center;
   justify-content: center;
   height: 100%;
-  margin: 100px  auto 0 auto;
+  margin: 25px  auto 0 auto;
 }
 
 .logo {
   width: 100px;
   height: 100px;
   float: right;
+}
+
+.logo2 {
+  width: 75%;
+  height: 80px;
+  float: left;
 }
 
 .button{
@@ -168,7 +156,7 @@ font-size: 16px;
 
 .chat-box, .chat-box-reply{
   background: #fff;
-  padding: .5em 1em;
+  padding: .2em 1em;
   margin: 2em auto;
   max-width: 480px;
   width: 95%;
@@ -189,7 +177,7 @@ font-size: 16px;
     height: 0;
     padding-top: 3em;
     position: relative;
-    top: 30px;
+    top: 20px;
     bottom: -57px;
 }
 
@@ -207,7 +195,7 @@ font-size: 16px;
     height: 0;
     padding-top: 3em;
     position: relative;
-    top: 30px;
+    top: 20px;
     bottom: -57px;
 
 

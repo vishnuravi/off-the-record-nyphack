@@ -2,6 +2,7 @@ import Vue from 'vue'
 Vue.use(require('vue-resource'))
 import App from './App'
 import Members from './Members'
+
 /* eslint-disable no-new */
 new Vue({
     el: 'body',
@@ -14,7 +15,6 @@ new Vue({
 
     ready: function () {
         this.getPage()
-        this.getProfileImage()
     },
 
     methods: {
@@ -30,17 +30,16 @@ new Vue({
 				this.$set('userInfo', arr)
             }
         }
-    },
-
-      getProfileImage: function () {
-      if (this.profileOfUser === '') {
-          this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
-              var profile = response.data
-              this.$set('profileOfUser', profile)
-              console.log(profile)
-          }, { 'jsonp': 'callback' })
-      }
     }
+
+      // getProfileImage: function () {
+      // if (this.profileOfUser === '') {
+      //     this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
+      //         var profile = response.data
+      //         this.$set('profileOfUser', profile)
+      //         console.log(profile)
+      //     }, { 'jsonp': 'callback' })
+      // }
 })
 
 Vue.transition('fadein', {

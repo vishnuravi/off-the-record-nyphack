@@ -1,31 +1,64 @@
 <template>
     <div class="top-nav">
         <div class="container">
-            <h1> Welcome, Dr. Suiss</h1>
+            <h1> Welcome, Dr. Sarabu</h1>
             <img class="logo animated" src="./assets/logo.png" transition="fadein"/>
         </div>
     </div>
     <div id="members">
-        <div class="main-container">
-          <h2> You have {{numOfMessages === '' ? '0' : numOfMessages }} New Messages</h2>
-            <div class="animated profile-box" transition="fadein">
+        <div class="main-container" >
+          <h2> You have {{numOfMessages === '' ? '0' : numOfMessages }} New Message</h2>
 
-              <div class="profile_img"><img /></div>
-                <p>Hello, {{patient_name}} %% patient_name %%<p>
+
+            <div  v-for="user in messages" class="animated profile-box" id="result" transition="fadein">
+
+            <div class="profile_img"><img class="pro" src="./assets/stud.png"/></div>
+                <p>From: {{user.phone_number}}.<p>
+                <p>Message: {{user.message}}.<p>
             </div>
 
         </div>
+
+<!--             <div class="animated profile-box" transition="fadein">
+
+
+            <div class="profile_img"><img class="pro" src="./assets/stud.png"/></div>
+                <p>You have one new message from, Vishnu.<p>
+            </div>
+ -->
+
+
+<!--             <div  v-for="user in messages" class="animated profile-box" id="result" transition="fadein">
+
+            <div class="profile_img"><img class="pro" v-bind:src="profile['results'][0]['user']['picture']['medium']"/></div>
+                <p>From: {{user.phone_number}}.<p>
+                <p>Message: {{user.message}}.<p>
+            </div>
+
+        </div> -->
+
+</div>
+
+
          </div>
   </template>
 <script>
 // import Thanks from './components/Thanks'
+
+import $ from 'jquery';
+$('body').addClass('baba')
+
+$.get('http://otr.vishnu.io:5000/messages&callback=?', function(data) {
+  $('#result').html(data)
+  console.log(data)
+});
 
 export default {
   name: 'Members',
 
   data () {
     return {
-      members: '',
+      messages: [{"phone_number": "+19085812326", "message": "Hi Doctor Ravi "}, {"phone_number": "+19085812326", "message": "Hello dr I need dick cream"}, {"phone_number": "+19085812326", "message": "I do too much drugs"}, {"phone_number": null, "message": null}],
       numOfMessages: '',
       profile: ''
     }
@@ -36,25 +69,28 @@ export default {
     this.getMembers()
   },
 
-    method: {
+    methods: {
 
-     getMembers: function () {
-        this.$http.get('/members', function (data) {
-        this.$set('members', data)
-        console.log(data)
-        this.$set('numOfMessages', data[Object.keys(data)[0]].length)
-    })
+     getMembers() {
+        this.$http.jsonp('http://otr.vishnu.io/messages.php').then(function (response) {
+        var msg = response.data
+        console.log(response.data)
+        this.$set('messages', msg)
+        console.log(msg)
+        }, {'jsonp': 'callback'})
     },
-
-    getProfileImage: function () {
+    getProfileImage() {
         this.$http.get('https://randomuser.me/api/').then(function (response) {
         var profile = response.data
         this.$set('profile', profile)
-        console.log(profile)
+        var prof = this.messages.length
+        this.$set('numOfMessages', prof)
       })
     }
+
   }
 }
+
 </script>
 
 
@@ -78,8 +114,11 @@ h1{
   
 }
 .profile_img{
+
+}
+
+ img.pro{
     border-radius: 66px;
-    background: #696969;
     height:70px;
     display: inline-block;
     width: 70px;
@@ -88,6 +127,8 @@ h1{
     padding: .5em;
     margin-right: 1em
 }
+
+
 
 .container{
   max-width: 600px;
