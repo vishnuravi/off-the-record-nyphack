@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <app v-if="page === ''"></app>
+    <app v-if="page != 'members'"></app>
     <members v-if="page === 'members'"></members>
     <!-- built files will be auto injected -->
 </body>

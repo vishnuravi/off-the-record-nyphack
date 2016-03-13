@@ -8,7 +8,8 @@ new Vue({
     components: { App, Members },
     data: {
         page: '',
-        profileOfUser: ''
+        profileOfUser: '',
+        userInfo: []
     },
 
     ready: function () {
@@ -22,19 +23,23 @@ new Vue({
             queryString = queryString.substring(1)
             if (!queryString) {
                 this.$set('page', '')
-            } else {
+            } else if (queryString === 'members') {
                 this.$set('page', queryString)
+            } else {
+				var arr = queryString.split('&')
+				this.$set('userInfo', arr)
             }
         }
     },
 
       getProfileImage: function () {
-        this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
-        var profile = response.data
-        this.$set('profileOfUser', profile)
-        console.log(profile)
-        this.$set('numOfMessages', profile[Object.keys(profile)[0]].length)
-      }, {'jsonp': 'callback'})
+      if (this.profileOfUser === '') {
+          this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
+              var profile = response.data
+              this.$set('profileOfUser', profile)
+              console.log(profile)
+          }, { 'jsonp': 'callback' })
+      }
     }
 })
 

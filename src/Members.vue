@@ -38,7 +38,7 @@ export default {
 
     method: {
 
-    getMembers () {
+     getMembers: function () {
         this.$http.get('/members', function (data) {
         this.$set('members', data)
         console.log(data)
@@ -46,15 +46,12 @@ export default {
     })
     },
 
-    getProfileImage () {
-        this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
+    getProfileImage: function () {
+        this.$http.get('https://randomuser.me/api/').then(function (response) {
         var profile = response.data
         this.$set('profile', profile)
         console.log(profile)
-        this.$set('numOfMessages', profile[Object.keys(profile)[0]].length)
-      }, {
-     'jsonp': 'callback'
-     })
+      })
     }
   }
 }

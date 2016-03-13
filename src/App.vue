@@ -7,19 +7,25 @@
     <div id="app">
         <div>
             <div class="animated chat-box" transition="fadein">
-                <p>Hello, <span v-model="%% patient_name %%">{{patient_name}} </span>
+                <p>Hello, <span>Vishnu, is there anything you'd like to discuss privately with Dr. Sarabu today?</span>
                     <p>
+                      <p>Feel Free to write anything, these messages disappear after your doctor sees them.<p>
+            </div>
+          <div class="animated chat-box" transition="fadein">
+                <p>You can ask about topics such as sex, birth controll, drink, drugs or gender questions.</p>
             </div>
 
         </div>
                 <div class="user-message">
                   <div class="user-container" v-if="!thanks">
+                      <form  action="http://otr.vishnu.io:5000/send" method="post">
                         <div>
                             <textarea v-model="message" name="message" class="textarea-box"></textarea>
                         </div>
                         <input @click="thanks = !thanks" type="submit" class="button" value="Send">
-                        <input type="hidden" name="phone_number" value="%% phone_number %%">
-
+                        <input type="hidden" name="phone_number" value="+19085812326">
+                      </form>
+                     
                       </div>
                 </div>
             <div v-if="thanks" class="animated" transition="fadein">
@@ -47,8 +53,30 @@ export default {
     return {
       message: '',
       patient_name: 'Sharon',
-      thanks: false
+      thanks: false,
+      userInfo: []
     }
+  },
+
+  ready () {
+    this.getUserName();
+  },
+
+  method: {
+    getUserName() {
+    var queryString = window.location.search
+     queryString = queryString.substring(1)
+    if (!queryString) {
+      this.$set('page', '')
+    } else if (queryString === 'members') {
+      this.$set('page', queryString)
+    } else {
+      var arr = queryString.split('&')
+      this.$set('userInfo', arr)
+    }
+
+  }
+
   }
 }
 </script>
@@ -140,8 +168,8 @@ font-size: 16px;
 
 .chat-box, .chat-box-reply{
   background: #fff;
-  padding: 1em 1em;
-  margin: 4em auto;
+  padding: .5em 1em;
+  margin: 2em auto;
   max-width: 480px;
   width: 95%;
   max-width: 600px;
