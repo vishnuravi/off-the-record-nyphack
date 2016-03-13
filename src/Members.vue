@@ -16,9 +16,6 @@
 
         </div>
          </div>
-
-
-
   </template>
 <script>
 // import Thanks from './components/Thanks'
@@ -30,6 +27,7 @@ export default {
     return {
       members: '',
       numOfMessages: '',
+      profile: ''
     }
   },
 
@@ -51,7 +49,7 @@ export default {
     getProfileImage: function () {
         this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
         var profile = response.data
-        this.$set('profile-image', profile)
+        this.$set('profile', profile)
         console.log(profile)
         this.$set('numOfMessages', profile[Object.keys(profile)[0]].length)
       }, {
