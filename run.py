@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, render_template
 from pymongo import MongoClient
-import twilio.twiml, os, time
+import twilio.twiml, os, time, json
 
 server_url = "http://apps.vishnu.io:5000"
 
@@ -43,8 +43,9 @@ def compose(token):
     valid_token = db.tokens.find_one({"token": token})
     if valid_token is not None:
         phone_number = valid_token['phone_number']
+        doctor_id = valid_token['doctor_id']
         db.tokens.remove({"token": token})
-        return render_template('compose.html', phone_number=phone_number)
+        return render_template('compose.html', phone_number=phone_number, doctor_id=doctor_id)
     else:
         return "Invalid Link"
 	
@@ -70,6 +71,15 @@ def process_registration():
     phone_number = request.values.get('phone_number', None)
     db.users.insert_one({"first_name": first_name, "last_name": last_name, "phone_number": phone_number})
     return "ok"
+    
+#retrieve all messages
+@app.route("/messages")
+def retrieve_messages():
+    cursor = db.messages.find()
+    response = []
+    for doc in cursor:
+        response.append({'phone_number' : doc['phone_number'], 'message' : doc['message']})
+    return json.dumps(response)
 
 #doctor dashboard
 @app.route("/dashboard")
