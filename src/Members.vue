@@ -72,13 +72,23 @@ export default {
     methods: {
 
      getMembers() {
-        this.$http.jsonp('http://otr.vishnu.io/messages.php').then(function (response) {
-        var msg = response.data
-        console.log(response.data)
+        this.$http.get('http://otr.vishnu.io/messages.php', function (data) {
+        var msg = data
         this.$set('messages', msg)
         console.log(msg)
         }, {'jsonp': 'callback'})
     },
+
+    // getData() {
+    //     var xhr = new XMLHttpRequest()
+    //     var apiUrl = 'http://otr.vishnu.io/messages.php'
+    //     var self = this
+    //     xhr.open('GET', apiUrl + self.branch)
+    //     xhr.onload = function () {
+    //         self.commits = JSON.parse(xhr.responseText)
+    //     }
+    //     xhr.send()   
+    // },
     getProfileImage() {
         this.$http.get('https://randomuser.me/api/').then(function (response) {
         var profile = response.data

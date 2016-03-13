@@ -11,10 +11,10 @@
             <div class="animated chat-box" transition="fadein">
                 <p>Hello, <span>Vishnu, is there anything you'd like to discuss privately with Dr. Sarabu today?</span>
                     <p>
-                      <p>Feel Free to write anything, these messages disappear after your doctor sees them.<p>
+                      <p>Feel free to write anything, these messages disappear after your doctor sees them.<p>
             </div>
           <div class="animated chat-box" transition="fadein">
-                <p>You can ask about topics such as sex, birth controll, drink, drugs or gender questions.</p>
+                <p>You can ask about topics such as sex, birth control, drink, drugs or gender questions.</p>
             </div>
 
         </div>
