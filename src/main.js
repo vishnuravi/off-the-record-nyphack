@@ -7,11 +7,13 @@ new Vue({
     el: 'body',
     components: { App, Members },
     data: {
-        page: ''
+        page: '',
+        profileOfUser: ''
     },
 
     ready: function () {
         this.getPage()
+        this.getProfileImage()
     },
 
     methods: {
@@ -24,6 +26,15 @@ new Vue({
                 this.$set('page', queryString)
             }
         }
+    },
+
+      getProfileImage: function () {
+        this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
+        var profile = response.data
+        this.$set('profileOfUser', profile)
+        console.log(profile)
+        this.$set('numOfMessages', profile[Object.keys(profile)[0]].length)
+      }, {'jsonp': 'callback'})
     }
 })
 

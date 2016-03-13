@@ -29,7 +29,7 @@
             </div>
 
           <div v-if="thanks"  class="animated chat-box" transition="fadein">
-            <p>Thanks <span v-model="%% patient_name %% "></span>. The Doctor will address this on your next visit. Enjoy your day!
+            <p>Thanks  <span v-model="%% patient_name %% "></span>. The Doctor will address this on your next visit. Enjoy your day!
             <p>
           </div>
          </div>
