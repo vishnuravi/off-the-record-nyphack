@@ -45,20 +45,20 @@
 <script>
 // import Thanks from './components/Thanks'
 
-import $ from 'jquery';
-$('body').addClass('baba')
+// import $ from 'jquery';
+// $('body').addClass('baba')
 
-$.get('http://otr.vishnu.io:5000/messages&callback=?', function(data) {
-  $('#result').html(data)
-  console.log(data)
-});
+// $.get('http://otr.vishnu.io:5000/messages&callback=?', function(data) {
+//   $('#result').html(data)
+//   console.log(data)
+// });
 
 export default {
   name: 'Members',
 
   data () {
     return {
-      messages: [{"phone_number": "+19085812326", "message": "Hi Doctor Ravi "}, {"phone_number": "+19085812326", "message": "Hello dr I need dick cream"}, {"phone_number": "+19085812326", "message": "I do too much drugs"}, {"phone_number": null, "message": null}],
+      messages: '',
       numOfMessages: '',
       profile: ''
     }
