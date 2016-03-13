@@ -7,7 +7,7 @@
     <div id="app">
         <div>
             <div class="animated chat-box" transition="fadein">
-                <p>Hello, {{patient_name}} %% patient_name %%
+                <p>Hello, <span v-model="%% patient_name %%">{{patient_name}} </span>
                     <p>
             </div>
 
@@ -29,7 +29,7 @@
             </div>
 
           <div v-if="thanks"  class="animated chat-box" transition="fadein">
-            <p>Thanks, %% patient_name %% . The Doctor will address this on your next visit. Enjoy your day!
+            <p>Thanks <span v-model="%% patient_name %% "></span>. The Doctor will address this on your next visit. Enjoy your day!
             <p>
           </div>
          </div>

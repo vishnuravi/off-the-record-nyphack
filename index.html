@@ -27,7 +27,8 @@
 </head>
 
 <body>
-    <app></app>
+    <app v-if="!members"></app>
+    <members v-if="members === true"></members>
     <!-- built files will be auto injected -->
 </body>
 
