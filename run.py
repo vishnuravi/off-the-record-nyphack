@@ -1,13 +1,17 @@
 from flask import Flask, request, redirect, render_template
 from pymongo import MongoClient
-import twilio.twiml, os, time
+import twilio.twiml, os, time, json
 
 server_url = "http://apps.vishnu.io:5000"
+
+class CustomFlask(Flask):
+    jinja_options = Flask.jinja_options.copy()
+    jinja_options.update(dict(variable_start_string='%%', variable_end_string='%%'))
 
 client = MongoClient()
 db = client.nyphack
 
-app = Flask(__name__)
+app = CustomFlask(__name__)
 
 @app.route("/")
 def index_page():
@@ -38,7 +42,10 @@ def process_sms():
 def compose(token):
     valid_token = db.tokens.find_one({"token": token})
     if valid_token is not None:
-        return render_template('compose.html')
+        phone_number = valid_token['phone_number']
+        doctor_id = valid_token['doctor_id']
+        db.tokens.remove({"token": token})
+        return render_template('compose.html', phone_number=phone_number, doctor_id=doctor_id)
     else:
         return "Invalid Link"
 	
@@ -47,9 +54,8 @@ def compose(token):
 @app.route("/send", methods=['GET', 'POST'])
 def save():
     message = request.values.get('message', None)
-    
-    #validate the token, then insert the message
-    db.messages.insert_one({"message": message, "time": int(time.time())})
+    phone_number = request.values.get('phone_number', None)
+    db.messages.insert_one({"phone_number": phone_number, "message": message, "time": int(time.time())})
     return "ok"
     
 #register a new phone number
@@ -65,6 +71,15 @@ def process_registration():
     phone_number = request.values.get('phone_number', None)
     db.users.insert_one({"first_name": first_name, "last_name": last_name, "phone_number": phone_number})
     return "ok"
+    
+#retrieve all messages
+@app.route("/messages")
+def retrieve_messages():
+    cursor = db.messages.find()
+    response = []
+    for doc in cursor:
+        response.append({'phone_number' : doc['phone_number'], 'message' : doc['message']})
+    return json.dumps(response)
 
 #doctor dashboard
 @app.route("/dashboard")
