@@ -43,7 +43,7 @@ new Vue({
 })
 
 Vue.transition('fadein', {
-    enterClass: 'fadeInUp',
-    leaveClass: 'fadeOutDown'
+    enterClass: 'pulse',
+    leaveClass: 'fadeOut'
 })
 

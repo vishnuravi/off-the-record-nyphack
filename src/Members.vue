@@ -7,7 +7,7 @@
     </div>
     <div id="members">
         <div class="main-container" >
-          <h2> You have {{numOfMessages === '' ? '0' : numOfMessages }} New Message</h2>
+          <h2> You have <span class="animated" transition="fadein">{{numOfMessages === '' ? '0' : numOfMessages }} </span>New Message</h2>
 
 
             <div  v-for="user in messages" class="animated profile-box" id="result" transition="fadein">
@@ -72,11 +72,13 @@ export default {
     methods: {
 
      getMembers() {
+
         this.$http.get('http://otr.vishnu.io/messages.php', function (data) {
         var msg = data
         this.$set('messages', msg)
         console.log(msg)
         }, {'jsonp': 'callback'})
+        setTimeout(this.getMembers, 2000);
     },
 
     // getData() {
@@ -128,6 +130,10 @@ h1{
 }
 .profile_img{
 
+}
+
+.fadeOut{
+  animation-duration: 0s;
 }
 
  img.pro{
