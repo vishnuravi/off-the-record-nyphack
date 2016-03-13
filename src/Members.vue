@@ -13,7 +13,7 @@
             <div  v-for="user in messages" class="animated profile-box" id="result" transition="fadein">
 
             <div class="profile_img"><img class="pro" src="./assets/stud.png"/></div>
-                <p>From: {{user.phone_number}}.<p>
+                <p>From: <b>Vishnu</b>, {{user.phone_number}}.<p>
                 <p>Message: {{user.message}}.<p>
             </div>
 
@@ -112,6 +112,9 @@ export default {
 <style>
 html {
   height: 100%;
+}
+p{
+  line-height: .8em;
 }
 
 *{
