@@ -1,37 +1,20 @@
 <template>
     <div class="top-nav">
         <div class="container">
+            <h1> Welcome, Dr. Suiss</h1>
             <img class="logo animated" src="./assets/logo.png" transition="fadein"/>
         </div>
     </div>
     <div id="members">
-        <div>
-            <div class="animated chat-box" transition="fadein">
-                <p>Hello, {{patient_name}} %% patient_name %%
-                    <p>
+        <div class="main-container">
+          <h2> You have {{numOfMessages === '' ? '0' : numOfMessages }} New Messages</h2>
+            <div class="animated profile-box" transition="fadein">
+
+              <div class="profile_img"><img /></div>
+                <p>Hello, {{patient_name}} %% patient_name %%<p>
             </div>
 
         </div>
-                <div class="user-message">
-                  <div class="user-container" v-if="!thanks">
-                        <div>
-                            <textarea v-model="message" name="message" class="textarea-box"></textarea>
-                        </div>
-                        <input @click="thanks = !thanks" type="submit" class="button" value="Send">
-                        <input type="hidden" name="phone_number" value="%% phone_number %%">
-
-                      </div>
-                </div>
-            <div v-if="thanks" class="animated" transition="fadein">
-              <div class="chat-box-reply">
-                <p>{{message}}<p>
-              </div>
-            </div>
-
-          <div v-if="thanks"  class="animated chat-box" transition="fadein">
-            <p>Thanks, %% patient_name %% . The Doctor will address this on your next visit. Enjoy your day!
-            <p>
-          </div>
          </div>
 
 
@@ -46,7 +29,35 @@ export default {
   data () {
     return {
       members: '',
+      numOfMessages: '',
     }
+  },
+
+  ready () {
+    this.getProfileImage()
+    this.getMembers()
+  },
+
+    method: {
+
+    getMembers: function () {
+        this.$http.get('/members', function (data) {
+        this.$set('members', data)
+        console.log(data)
+        this.$set('numOfMessages', data[Object.keys(data)[0]].length)
+    })
+    },
+
+    getProfileImage: function () {
+        this.$http.jsonp('https://randomuser.me/api/').then(function (response) {
+        var profile = response.data
+        this.$set('profile-image', profile)
+        console.log(profile)
+        this.$set('numOfMessages', profile[Object.keys(profile)[0]].length)
+      }, {
+     'jsonp': 'callback'
+     })
+}
   }
 }
 </script>
@@ -65,10 +76,35 @@ html {
 *{
   box-sizing: border-box; 
 }
+h1{
+  color: #fff;
+  display: inline-block;
+  font-size: 1.5em;
+  
+}
+.profile_img{
+    border-radius: 66px;
+    background: #696969;
+    height:70px;
+    display: inline-block;
+    width: 70px;
+    float: left;
+    box-sizing: border-box;
+    padding: .5em;
+    margin-right: 1em
+}
 
 .container{
-  max-width: 480px;
+  max-width: 600px;
   margin: 0 auto;
+  width: 95%;
+  padding: 0 1em;
+}
+
+.main-container{
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1em;
 }
 
 .top-nav{
@@ -93,13 +129,14 @@ font-size: 16px;
   align-items: center;
   justify-content: center;
   height: 100%;
-  margin: 100px  auto 0 auto;
+  margin: 2em  auto 0 auto;
 }
 
 .logo {
-  width: 100px;
-  height: 100px;
+  width: 25%;
   float: right;
+  display: block;
+
 }
 
 .button{
@@ -136,52 +173,17 @@ font-size: 16px;
   font-family:  "Josefin Sans", Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
 }
 
-.chat-box, .chat-box-reply{
+.profile-box{
   background: #fff;
   padding: 1em 1em;
-  margin: 4em auto;
+  margin: 2em auto;
   max-width: 480px;
   width: 95%;
   max-width: 600px;
+  display: block;
+  height: 100px;
 }
 
-.chat-box:after{
-    width: 0px;
-    height: 0px;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-top: 20px solid #fff;
-    margin-left: 0;
-    width: 0;
-    content: " ";
-    font-size: 0;
-    line-height: 0;
-    height: 0;
-    padding-top: 3em;
-    position: relative;
-    top: 30px;
-    bottom: -57px;
-}
-
-.chat-box-reply:after{
-    width: 0px;
-    height: 0px;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-top: 20px solid #fff;
-    margin-left: 82%;
-    width: 0;
-    content: " ";
-    font-size: 0;
-    line-height: 0;
-    height: 0;
-    padding-top: 3em;
-    position: relative;
-    top: 30px;
-    bottom: -57px;
-
-
-}
 
 
 

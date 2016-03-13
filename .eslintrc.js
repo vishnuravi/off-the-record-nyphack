@@ -12,6 +12,7 @@ module.exports = {
     'arrow-parens': 0,
     'comma-dangle': 0,
     'indent': 0,
+    'padded-blocks': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

@@ -23,12 +23,12 @@
     <meta name="theme-color" content="#ffffff">
     <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link  rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css' type='text/css'>
-    <title>Compose Message</title>
+    <title>Off the Record</title>
 </head>
 
 <body>
-    <app v-if="!members"></app>
-    <members v-if="members === true"></members>
+    <app v-if="page === ''"></app>
+    <members v-if="page === 'members'"></members>
     <!-- built files will be auto injected -->
 </body>
 
