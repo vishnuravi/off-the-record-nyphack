@@ -4,10 +4,14 @@ import twilio.twiml, os, time
 
 server_url = "http://apps.vishnu.io:5000"
 
+class CustomFlask(Flask):
+    jinja_options = Flask.jinja_options.copy()
+    jinja_options.update(dict(variable_start_string='%%', variable_end_string='%%'))
+
 client = MongoClient()
 db = client.nyphack
 
-app = Flask(__name__)
+app = CustomFlask(__name__)
 
 @app.route("/")
 def index_page():
@@ -38,6 +42,7 @@ def process_sms():
 def compose(token):
     valid_token = db.tokens.find_one({"token": token})
     if valid_token is not None:
+        db.tokens.remove({"token": token})
         return render_template('compose.html')
     else:
         return "Invalid Link"
@@ -49,7 +54,7 @@ def save():
     message = request.values.get('message', None)
     
     #validate the token, then insert the message
-    db.messages.insert_one({"message": message, "time": int(time.time())})
+    db.messages.insert_one({"phone_number": phone_number, "message": message, "time": int(time.time())})
     return "ok"
     
 #register a new phone number
