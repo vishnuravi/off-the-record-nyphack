@@ -29,25 +29,22 @@ def process_sms():
     if valid_number is not None:
         token = os.urandom(8).encode('hex')
         db.tokens.insert_one({"token": token, "phone_number": phone_number, "time": int(time.time())})
-        resp.message("Hi! Tap the link below to send a secure message to the doctor.")
-        resp.message(server_url + "/compose/" + token)
+        resp.message("Hi! Tap the following link to send a secure message to your doctor. " + server_url + "/c/" + token)
     else:
-        resp.message("Your number was not recognized as belonging to a current patient. Register at the following link:")
-        resp.message(server_url + "/register/" + phone_number)
+        resp.message("Your number was not recognized as belonging to a current patient. Register at the following link: " + server_url + "/register/" + phone_number)
     
     return str(resp)
 
 #renders form to compose message
-@app.route("/compose/<token>", methods=['GET', 'POST'])
+@app.route("/c/<token>", methods=['GET', 'POST'])
 def compose(token):
     valid_token = db.tokens.find_one({"token": token})
     if valid_token is not None:
         phone_number = valid_token['phone_number']
-        doctor_id = valid_token['doctor_id']
         db.tokens.remove({"token": token})
-        return render_template('compose.html', phone_number=phone_number, doctor_id=doctor_id)
+        return render_template('compose.html', phone_number=phone_number)
     else:
-        return "Invalid Link"
+        return "<h1>This link has been used already or expired. Please try again.</h1>"
 	
 
 #saves message to database
