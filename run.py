@@ -17,8 +17,7 @@ app = CustomFlask(__name__)
 def index_page():
     return "Hello"
  
-#recieves sms from Twilio and sends st
- back link to compose message
+#recieves sms from Twilio and sends back link to compose message
 @app.route("/process_sms", methods=['GET', 'POST'])
 def process_sms():
     phone_number = request.values.get('From', None)
