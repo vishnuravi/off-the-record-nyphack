@@ -1,27 +1,15 @@
-# waft
+#Off the Record
 
-> A Vue.js project
+Project for the Innovate New York-Presbyterian Medical Center Pediatrics Hackathon
 
-## Build Setup
+#What is Off the Record?
 
-``` bash
-# install dependencies
-npm install
+As a teen, it’s embarrassing and awkward to openly ask your doctor questions about things like drugs, alcohol, sex, etc. when your parents are in the room. These conversations reveal risk factors that lead to accidents and suicide, the two biggest killers in the adolescent population.
 
-# serve with hot reload at localhost:8080
-npm run dev
+This project allows teens to text a number specific to their doctor which sends them back a link to a uniquely generated secure messaging portal where they can enter in the question or concern they have for their doctor privately and securely. The message is then delivered to the doctor's Electronic Medical Record system and erased completely from the teen's phone. There is no app to install or data on the phone that can be tracked.
 
-# build for production with minification
-npm run build
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+#To start server
 ```
-
-For detailed explanation on how things work, checkout the [guide](https://github.com/vuejs-templates/webpack#vue-webpack-boilerplate) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+$ pip install -r requirements.txt
+$ python run.py
+```
