@@ -9,12 +9,12 @@
     <div id="app">
         <div>
             <div class="animated chat-box" transition="fadein">
-                <p>Hello, <span>Vishnu, is there anything you'd like to discuss privately with Dr. Sarabu today?</span>
+                <p>Hello, <span>{{ first_name }}, is there anything you'd like to discuss privately with the doctor today?</span>
                     <p>
                       <p>Feel free to write anything, these messages disappear after your doctor sees them.<p>
             </div>
           <div class="animated chat-box" transition="fadein">
-                <p>You can ask about topics such as sex, birth control, drink, drugs or gender questions.</p>
+                <p>You can ask about topics such as sex, birth control, drugs, gender identity, etc.</p>
             </div>
 
         </div>
@@ -25,7 +25,7 @@
                             <textarea v-model="message" name="message" class="textarea-box"></textarea>
                         </div>
                         <input @click="thanks = !thanks" type="submit" class="button" value="Send">
-                        <input type="hidden" name="phone_number" value="+19085812326">
+                        <input type="hidden" name="phone_number" value="{{ phone_number }}">
                       </form>
                      
                       </div>
@@ -37,7 +37,7 @@
             </div>
 
           <div v-if="thanks"  class="animated chat-box" transition="fadein">
-            <p>Thanks Vishnu. The Doctor will address this on your next visit. Enjoy your day!
+            <p>Thanks {{ first_name }}! The doctor will address this on your next visit. Enjoy your day!
             <p>
           </div>
          </div>
